@@ -3,6 +3,7 @@ import re
 from datetime import datetime
 from collections import defaultdict
 import os
+import sys
 import zipfile
 import io
 
@@ -182,8 +183,14 @@ def export_results_to_zip(metrics, workspace_stats, monthly_counts):
 
 def main():
     try:
+        services_csv = os.environ.get('SERVICES_CSV_PATH', '')
+            
+        if not services_csv:
+            print("Error: SERVICES_CSV_PATH environment variable is not set")
+            sys.exit(1)
+        
         users_df = pd.read_csv('users.csv')
-        services_df = pd.read_csv('services.csv')
+        services_df = pd.read_csv(services_csv)
         
         # Calculate metrics
         unique_developers = count_unique_developers(users_df)
