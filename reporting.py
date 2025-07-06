@@ -8,8 +8,8 @@ import zipfile
 import io
 
 def count_unique_developers(users_df):
-    """Count unique developers based on plural_ids"""
-    return len(users_df['plural_id'].unique())
+    """Count unique developers based on email addresses"""
+    return len(users_df['email'].str.lower().unique())
 
 def get_environment(service_name):
     """Extract environment from service name"""
@@ -184,12 +184,13 @@ def export_results_to_zip(metrics, workspace_stats, monthly_counts):
 def main():
     try:
         services_csv = os.environ.get('SERVICES_CSV_PATH', '')
+        users_csv = os.environ.get('USERS_CSV_PATH', '')
             
         if not services_csv:
             print("Error: SERVICES_CSV_PATH environment variable is not set")
             sys.exit(1)
         
-        users_df = pd.read_csv('users.csv')
+        users_df = pd.read_csv(users_csv)
         services_df = pd.read_csv(services_csv)
         
         # Calculate metrics
