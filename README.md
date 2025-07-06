@@ -1,2 +1,3 @@
-Step 1. `python export_users.py` (make sure to set bearer token and console url env vars)
-Step 2. `reporting.py`
+`python reporting.py`
+
+Just make sure that you set the `SERVICES_CSV_PATH` and the `USERS_CSV_PATH` env vars before running the script. `services.csv` and `users.csv` can both be found by generating a compliance report.
